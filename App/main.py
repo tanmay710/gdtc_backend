@@ -1,21 +1,18 @@
 from fastapi import FastAPI,HTTPException,Depends,status,Query,UploadFile,File,Form,Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.security import OAuth2PasswordBearer,OAuth2PasswordRequestForm
+from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel, Field,EmailStr
 from typing import Optional,Annotated,List
 from Models import models
 from Database.database import SessionLocal,engine
 from Schemas import schemas,hotelschemas,bookings,token
 from sqlalchemy.orm import Session
-from datetime import datetime,timedelta, timezone
+from datetime import datetime,timedelta
 from jose import JWTError,jwt
-from passlib.context import CryptContext
 from sqlalchemy import asc,desc, func
 from Auth.auth import get_password_hash,verify_password,ACCESS_TOKEN_EXPIRE_MINUTES,create_access_token,get_current_user,get_current_admin
 import os
 import shutil
-from uuid import uuid4
 
 UPLOAD_DIR = "static/images"
 os.makedirs(UPLOAD_DIR,exist_ok=True)

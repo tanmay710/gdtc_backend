@@ -1,4 +1,3 @@
-from typing import List
 from pydantic import BaseModel, Field,EmailStr
 from Schemas import schemas,hotelschemas
 from datetime import date

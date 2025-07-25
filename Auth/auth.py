@@ -82,11 +82,12 @@ def get_current_admin(token : Annotated[str,Depends(oauth2_scheme)],db : db_depe
     try :
         payload = jwt.decode(token,SECRET_KEY,algorithms=[ALGORITHM])
         username = payload.get("sub")
+        role = payload.get("role")
         if username is None:
             raise credential_exceptions
     except JWTError:
         raise credential_exceptions
     user = db.query(mod.User).filter(mod.User.username == username).first()
-    if user is None or user.role.name != "admin":
+    if user is None or role != "admin":
         raise credential_exceptions
     return user
